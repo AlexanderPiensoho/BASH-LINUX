@@ -1,0 +1,8 @@
+services:
+  socket-listener:
+    image: socket-listener:latest
+    container_name: socket-listener
+    ports:
+      - 5555:5555
+    volumes:
+      - ./socket-listener.log:/var/log/socket-listener.log

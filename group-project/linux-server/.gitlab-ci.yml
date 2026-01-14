@@ -1,0 +1,10 @@
+stages:
+  - test
+
+shellcheck:
+  stage: test
+  image: koalaman/shellcheck-alpine:v0.11.0
+  rules:
+    - if: '$CI_MERGE_REQUEST_TARGET_BRANCH_NAME == "main"'
+  script:
+    - find -type f -regex '^.*\.sh$' | xargs shellcheck -x

@@ -1,0 +1,10 @@
+[Unit]
+Description=Start socket-listener docker container
+Requires=docker.service
+
+[Service]
+Type=oneshot
+ExecStart=/usr/local/bin/run-docker.sh
+
+[Install]
+WantedBy=multi-user.target
