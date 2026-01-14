@@ -1,0 +1,43 @@
+services:
+  caddy:
+    image: caddy:latest
+    container_name: caddy
+    restart: unless-stopped
+    cap_add:
+      - NET_ADMIN
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./conf:/caddy
+      - ./site:/srv
+      - caddy_data:/data
+      - caddy_config:/config
+
+  wordpress:
+    image: wordpress
+    restart: unless-stopped
+    environment:
+      WORDPRESS_DB_HOST: db
+      WORDPRESS_DB_USER: alexander
+      WORDPRESS_DB_PASSWORD: alexander
+      WORDPRESS_DB_NAME: alexandersDB
+    volumes:
+      - wordpress:/var/www/html
+
+  db:
+    image: mariadb:latest
+    restart: unless-stopped
+    environment:
+      MARIADB_ROOT_PASSWORD: alexander 
+      MARIADB_DATABASE: alexandersDB
+      MARIADB_USER: alexander
+      MARIADB_PASSWORD: alexander
+    volumes:
+      - db_data:/var/lib/mysql
+
+volumes:
+  caddy_data:
+  caddy_config:
+  wordpress:
+  db_data:
